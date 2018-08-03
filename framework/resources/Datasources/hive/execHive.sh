@@ -36,10 +36,17 @@ do
 parameters=$parameters" -hiveconf $i";
 done
 
+hive_memory_config=""
+hive_memory_config=$hive_memory_config -hiveconf mapred.map.memory.mb=8096
+hive_memory_config=$hive_memory_config -hiveconf mapreduce.map.memory.mb=8096
+hive_memory_config=$hive_memory_config -hiveconf mapred.map.child.java.opts="-Xmx8000m"
+hive_memory_config=$hive_memory_config -hiveconf mapreduce.map.java.opts="-Xmx8000m"
+hive_memory_config=$hive_memory_config -hiveconf yarn.nodemanager.resource.memory-mb=8192
+
 current_time=$(date "+%Y.%m.%d-%H.%M.%S");
 log_loc=$script-$current_time.log;
 
-hive -f $script_loc $parameters -hiveconf  mapred.map.memory.mb=8096 -hiveconf mapred.map.child.java.opts="-Xmx8000m" -hiveconf  mapreduce.map.memory.mb=8096 -hiveconf mapreduce.map.java.opts="-Xmx8000m" hive.log.file=$log_loc;
+hive -f $script_loc $parameters $hive_memory_config hive.log.file=$log_loc;
 
 exit 0;
 
