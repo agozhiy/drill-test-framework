@@ -11,6 +11,10 @@ if [ $? -eq 0 ]
 then
     hadoop fs -rm -r $hadoop_folder/$maprdb_table
 fi
+
+set -x
+set -e
+
 mapr importJSON -idField "id" -src $hadoop_folder/$test_data -dst $hadoop_folder/$maprdb_table
 
 # Creating the Hive table:
@@ -28,3 +32,5 @@ ${DRILL_TEST_DATA_DIR}/Datasources/hive/execHive.sh $hive_ddl_parametrized
 
 # Clean:
 rm $hive_ddl_parametrized
+
+set +x
