@@ -53,6 +53,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.io.Resources;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -1069,5 +1070,26 @@ public class Utils {
         return false;
       }
     return true;
+  }
+
+  public static String getFrameworkVersion() {
+    String commit = "";
+    String commitAuthor = "";
+    String commitMail = "";
+    String commitMessage = "";
+    try {
+      URL u = Resources.getResource("framework.git.properties");
+      if (u != null) {
+        Properties p = new Properties();
+        p.load(Resources.asByteSource(u).openStream());
+        commit = p.getProperty("git.commit.id");
+        commitAuthor = p.getProperty("git.commit.user.name");
+        commitMail = p.getProperty("git.commit.user.email");
+        commitMessage = p.getProperty("git.commit.message.short");
+      }
+    } catch (IOException | IllegalArgumentException e) {
+      LOG.warn("Failure while trying to load \"framework.git.properties\" file.", e);
+    }
+    return String.format("Commit: %s\nAuthor: %s <%s>\n\n%s", commit, commitAuthor, commitMail, commitMessage);
   }
 }
