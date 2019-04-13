@@ -220,7 +220,7 @@
         <configuration>
           <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
           <generateGitPropertiesFile>true</generateGitPropertiesFile>
-          <generateGitPropertiesFilename>${project.basedir}/../conf/framework.git.properties</generateGitPropertiesFilename>
+          <generateGitPropertiesFilename>${project.basedir}/../git.properties</generateGitPropertiesFilename>
           <failOnNoGitDirectory>false</failOnNoGitDirectory>
           <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
           <gitDescribe>
