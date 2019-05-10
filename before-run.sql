@@ -6,6 +6,7 @@ alter system set `exec.errors.verbose` = true;
 alter system set `planner.memory.max_query_memory_per_node` = 10737418240;
 alter system set `drill.exec.hashagg.fallback.enabled` = true;
 alter system set `drill.exec.hashjoin.fallback.enabled` = true;
+alter system set `exec.storage.enable_v3_text_reader` = true;
 select * from sys.options where status = 'CHANGED';
 select * from sys.version;
 select * from sys.drillbits;
